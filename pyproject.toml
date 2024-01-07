@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "cybercat"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.3"
+matplotlib = "^3.8.2"
+scipy = "^1.11.4"
+pygame = "^2.5.2"
+pyaudio = "^0.2.14"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
