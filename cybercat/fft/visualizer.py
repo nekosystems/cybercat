@@ -2,7 +2,7 @@ import numpy as np
 import time, sys, math
 import pygame
 from collections import deque
-from fft.utils import Button
+from cybercat.fft.utils import Button
 from matplotlib import cm
 
 class Spectrum_Visualizer:

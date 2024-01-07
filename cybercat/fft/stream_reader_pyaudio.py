@@ -3,7 +3,7 @@ import pyaudio
 import time, sys, math
 from collections import deque
 
-from fft.utils import *
+from cybercat.fft.utils import *
 
 class Stream_Reader:
     """

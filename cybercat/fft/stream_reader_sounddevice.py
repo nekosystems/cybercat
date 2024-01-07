@@ -3,7 +3,7 @@ import time, sys, math
 from collections import deque
 import sounddevice as sd
 
-from fft.utils import *
+from cybercat.fft.utils import *
 
 class Stream_Reader:
     """

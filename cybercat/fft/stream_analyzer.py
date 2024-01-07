@@ -3,8 +3,8 @@ import time, math, scipy
 from collections import deque
 from scipy.signal import savgol_filter
 
-from fft.fft import getFFT
-from fft.utils import *
+from cybercat.fft.fft import getFFT
+from cybercat.fft.utils import *
 
 class Stream_Analyzer:
     """
@@ -40,14 +40,14 @@ class Stream_Analyzer:
         self.window_ratio = window_ratio
 
         try:
-            from fft.stream_reader_pyaudio import Stream_Reader
+            from cybercat.fft.stream_reader_pyaudio import Stream_Reader
             self.stream_reader = Stream_Reader(
                 device  = device,
                 rate    = rate,
                 updates_per_second  = updates_per_second,
                 verbose = verbose)
         except:
-            from fft.stream_reader_sounddevice import Stream_Reader
+            from cybercat.fft.stream_reader_sounddevice import Stream_Reader
             self.stream_reader = Stream_Reader(
                 device  = device,
                 rate    = rate,
@@ -64,7 +64,7 @@ class Stream_Analyzer:
         if self.apply_frequency_smoothing:
             self.filter_width = round_up_to_even(0.03*self.n_frequency_bins) - 1
         if self.visualize:
-            from fft.visualizer import Spectrum_Visualizer
+            from cybercat.fft.visualizer import Spectrum_Visualizer
 
         self.FFT_window_size = round_up_to_even(self.rate * FFT_window_size_ms / 1000)
         self.FFT_window_size_ms = 1000 * self.FFT_window_size / self.rate

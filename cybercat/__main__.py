@@ -1,5 +1,5 @@
 import argparse
-from fft.stream_analyzer import Stream_Analyzer
+from cybercat.fft.stream_analyzer import Stream_Analyzer
 import time
 
 def parse_args():
