@@ -12,6 +12,10 @@ matplotlib = "^3.8.2"
 scipy = "^1.11.4"
 pygame = "^2.5.2"
 pyaudio = "^0.2.14"
+adafruit-circuitpython-neopixel = "^6.3.11"
+rpi-gpio = "^0.7.1"
+rpi-ws281x = "^5.0.0"
+nicegui = "^1.4.9"
 
 
 [build-system]
