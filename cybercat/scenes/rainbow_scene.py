@@ -19,4 +19,7 @@ class RainbowScene(SceneInterface):
     
     def get_frame(self):
         self.frame.append(self.frame.pop(0))
+        self.frame.append(self.frame.pop(0))
+        self.frame.append(self.frame.pop(0))
+        self.frame.append(self.frame.pop(0))
         return self.frame

@@ -5,9 +5,9 @@ from nicegui import ui
 
 
 
-width = 16
-height = 16
-max_brightness = 0.5
+width = 64
+height = 32
+max_brightness = 0.2
 
 # def parse_args():
 #     parser = argparse.ArgumentParser()
@@ -81,13 +81,35 @@ max_brightness = 0.5
 if __name__ in {"__main__", "__mp_main__"}:
     # run_FFT_analyzer()
 
+    # import serial
+    # import time
+
+    # ser = serial.Serial("/dev/ttyACM0", "115200")
+    # print(ser.name)
+
+    # f = [42, 0, 0] + ([10] * (32 * 64 * 3))
+    # # print(bytes(f))
+    # # print("1")
+    # ser.write(b'@')
+    # ser.write(bytes(f))
+    # # ser.write(b'*   ')
+    # # ser.write(b'?')
+    # # print("2")
+    # # time.sleep(1)
+    # # print(ser.read_all())
+    # ser.close()
+    # # print("3")
+    # exit()
+
+
+
     with CustomManager() as m:
-        scene_manager:SceneManager = m.SceneManager(width, height, target_fps=60)
+        scene_manager:SceneManager = m.SceneManager(width, height, target_fps=30)
 
         ui.label('CYBERCAT')
         ui.separator()
-        brightness_slider = ui.slider(min=0, max=max_brightness, step=0.01, value=0.2, on_change=lambda: scene_manager.set_brightness(brightness_slider.value))
+        brightness_slider = ui.slider(min=0, max=max_brightness, step=0.01, value=0.05, on_change=lambda: scene_manager.set_brightness(brightness_slider.value))
         for scene in scene_list:
-            ui.button(scene.__name__, on_click=lambda: scene_manager.set_scene(scene))
+            ui.button(scene.__name__, on_click=lambda scene=scene: scene_manager.set_scene(scene))
 
         ui.run(reload=False, show = False)

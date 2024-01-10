@@ -16,6 +16,7 @@ adafruit-circuitpython-neopixel = "^6.3.11"
 rpi-gpio = "^0.7.1"
 rpi-ws281x = "^5.0.0"
 nicegui = "^1.4.9"
+pyserial = "^3.5"
 
 
 [build-system]

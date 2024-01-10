@@ -40,7 +40,10 @@ class FFTScene(SceneInterface):
             for w in range(self.width):
                 for h in range(self.height):
                     if feature_values[w] > h:
-                        self.frame[w * self.width + h] = (255, 255, 255)
+                        self.frame[w * self.height + h] = (255, 255, 255)
                     else:
-                        self.frame[w * self.width + h] = (0, 0, 0)
+                        self.frame[w * self.height + h] = (0, 0, 0)
         return self.frame
+    
+    def deinit(self):
+        self.ear.stream_reader.terminate()
