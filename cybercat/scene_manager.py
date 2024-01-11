@@ -45,10 +45,11 @@ from rpi_ws281x import ws, Color, Adafruit_NeoPixel
 
 
 class SceneManager:
-    def __init__(self, width, height, target_fps = 60):
+    def __init__(self, width, height, target_fps, default_brightness):
         self._width = width
         self._height = height
         self._target_fps = target_fps
+        self._pixels_brightness = default_brightness
 
         # self._pixels = neopixel.NeoPixel(board.D10, self._width * self._height, brightness=0.2, pixel_order=neopixel.GRB, auto_write=False)
         # self._pixels2 = neopixel.NeoPixel(board.D6, self._width * self._height, brightness=0.2, pixel_order=neopixel.GRB, auto_write=False)
@@ -79,7 +80,7 @@ class SceneManager:
 
     def set_brightness(self, brightness):
         with self._pixel_lock:
-            self._pixels.brightness = brightness
+            self._pixels_brightness = brightness
 
     def set_scene(self, scene: Type[SceneInterface]):
         with self._scene_lock:
@@ -130,12 +131,13 @@ class SceneManager:
                 #     pixels.show()
                 #     pixels2.show()
 
-                frame = [42, 0, 0]
+                frame = []
                 for x in current_scene_instance.get_frame():
                     frame.extend(x)
+                frame = [int(x * self._pixels_brightness) for x in frame]
                 # print(len(frame))
                 # frame = [42, 0, 0] + ([10] * (32 * 64 * 3))
-                serial.write(bytes(frame))
+                serial.write(bytes([42, 0, 0] + frame))
 
             # last_update = time.time()
             # last_sec = time.time()

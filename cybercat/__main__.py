@@ -8,6 +8,7 @@ from nicegui import ui
 width = 64
 height = 32
 max_brightness = 0.2
+default_brightness = 0.05
 
 # def parse_args():
 #     parser = argparse.ArgumentParser()
@@ -104,11 +105,11 @@ if __name__ in {"__main__", "__mp_main__"}:
 
 
     with CustomManager() as m:
-        scene_manager:SceneManager = m.SceneManager(width, height, target_fps=30)
+        scene_manager:SceneManager = m.SceneManager(width, height, target_fps=30, default_brightness=default_brightness)
 
         ui.label('CYBERCAT')
         ui.separator()
-        brightness_slider = ui.slider(min=0, max=max_brightness, step=0.01, value=0.05, on_change=lambda: scene_manager.set_brightness(brightness_slider.value))
+        brightness_slider = ui.slider(min=0, max=max_brightness, step=0.01, value=default_brightness, on_change=lambda: scene_manager.set_brightness(brightness_slider.value))
         for scene in scene_list:
             ui.button(scene.__name__, on_click=lambda scene=scene: scene_manager.set_scene(scene))
 

@@ -113,7 +113,7 @@ https://github.com/PaulStoffregen/OctoWS2811/tree/master/extras
 // spans 2, 3, 4 rows. led_layout indicates how strips are arranged.
 uint16_t led_width  = 32; // Number of LEDs horizontally
 uint16_t led_height = 256; // Number of LEDs vertically
-uint8_t  led_layout = 0;  // 0 = even rows left->right, 1 = right->left
+uint8_t  led_layout = 1;  // 0 = even rows left->right, 1 = right->left
 
 // The portion of the video image to show on this set of LEDs.  All 4 numbers
 // are percentages, from 0 to 100.  For a large LED installation with many
@@ -172,6 +172,7 @@ void setup() {
   // Allocate imageBuffer
   imageBufferSize = led_width * led_height * 3;
   imageBuffer = (uint8_t *)malloc(imageBufferSize);
+  memset(imageBuffer, 0, imageBufferSize);
   if (imageBuffer == NULL) error_handler("Image buffer allocation", 200);
 
   if (!leds->begin()) error_handler("NeoPXL8 begin() failed", 500);
@@ -339,11 +340,6 @@ void convert_and_show() {
         uint8_t g = (*ptr++);
         uint8_t b = (*ptr++);
         leds->setPixelColor(pixelIndex, r, g, b);
-        // Serial.print(r);
-        // Serial.print(", ");
-        // Serial.print(g);
-        // Serial.print(", ");
-        // Serial.println(b);
       }
     }
   } else {
@@ -351,9 +347,13 @@ void convert_and_show() {
       for (int x=0; x<led_width; x++) {
         // Even rows are left-to-right, odd are right-to-left
         int pixelIndex = (y & 1) ? (y + 1) * led_width - 1 - x : y * led_width + x;
-        uint8_t r = leds->gamma8(*ptr++);
-        uint8_t g = leds->gamma8(*ptr++);
-        uint8_t b = leds->gamma8(*ptr++);
+        // uint8_t r = leds->gamma8(*ptr++);
+        // uint8_t g = leds->gamma8(*ptr++);
+        // uint8_t b = leds->gamma8(*ptr++);
+        // leds->setPixelColor(pixelIndex, r, g, b);
+        uint8_t r = (*ptr++);
+        uint8_t g = (*ptr++);
+        uint8_t b = (*ptr++);
         leds->setPixelColor(pixelIndex, r, g, b);
       }
     }
