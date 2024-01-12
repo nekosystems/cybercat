@@ -7,7 +7,7 @@
 // This is a companion to "move2serial" in the extras/Processing folder.
 
 #include <Adafruit_NeoPXL8.h>
-#include "Adafruit_TinyUSB.h"
+// #include "Adafruit_TinyUSB.h"
 
 
 // This example is adapted from one in PJRC's OctoWS2811 Library. Original
@@ -155,6 +155,7 @@ void error_handler(const char *message, uint16_t speed) {
 void setup() {
   // CHANGE these to match your strandtest findings (or use .cfg file):
   int8_t pins[8] = {8, 9, 10, 11, 12, 13, 14, 15};
+  // int8_t pins[8] = {1, 6, -1, -1, -1, -1, -1, -1};
   uint16_t order = NEO_GRB;
 
   // Start Serial AFTER FFS begin, else CIRCUITPY won't show on computer.

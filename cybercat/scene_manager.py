@@ -9,12 +9,16 @@ import serial
 
 from cybercat.scene_interface import SceneInterface
 
+from cybercat.scenes.blank_scene import BlankScene
 from cybercat.scenes.rainbow_scene import RainbowScene
 from cybercat.scenes.fft_scene import FFTScene
+from cybercat.scenes.media_scene import MediaScene
 
 scene_list = [
+    BlankScene,
     RainbowScene,
     FFTScene,
+    MediaScene,
 ]
 
 
@@ -87,6 +91,10 @@ class SceneManager:
             self._current_scene_type = scene
             print("Setting: " + str(self._current_scene_type))
 
+    def set_media(self, file: str):
+        with self._scene_lock:
+            self._current_media = file
+
 
     # def _loop_thread_f(self, pixels: Adafruit_NeoPixel,  pixels2: Adafruit_NeoPixel):
     def _loop_thread_f(self, serial: serial.Serial):
@@ -109,7 +117,10 @@ class SceneManager:
                 if self._current_scene_type != type(current_scene_instance):
                     print("Switching to " + self._current_scene_type.__name__)
                     current_scene_instance.deinit()
-                    current_scene_instance = self._current_scene_type(self._width, self._height)
+                    if self._current_scene_type == MediaScene:
+                        current_scene_instance = self._current_scene_type(self._width, self._height, self._current_media)
+                    else:
+                        current_scene_instance = self._current_scene_type(self._width, self._height)
 
             if (now > last_frame + frame_period):
                 last_frame = now

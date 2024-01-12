@@ -1,5 +1,5 @@
 from cybercat.scene_manager import CustomManager, SceneManager, scene_list
-
+import os
 
 from nicegui import ui
 
@@ -9,6 +9,7 @@ width = 64
 height = 32
 max_brightness = 0.2
 default_brightness = 0.05
+media_dir = os.path.join("cybercat", "media")
 
 # def parse_args():
 #     parser = argparse.ArgumentParser()
@@ -103,7 +104,6 @@ if __name__ in {"__main__", "__mp_main__"}:
     # exit()
 
 
-
     with CustomManager() as m:
         scene_manager:SceneManager = m.SceneManager(width, height, target_fps=30, default_brightness=default_brightness)
 
@@ -112,5 +112,9 @@ if __name__ in {"__main__", "__mp_main__"}:
         brightness_slider = ui.slider(min=0, max=max_brightness, step=0.01, value=default_brightness, on_change=lambda: scene_manager.set_brightness(brightness_slider.value))
         for scene in scene_list:
             ui.button(scene.__name__, on_click=lambda scene=scene: scene_manager.set_scene(scene))
+        
+        files = [f for f in os.listdir(media_dir) if os.path.isfile(os.path.join(media_dir, f))]
+        selections = {os.path.join(media_dir, f): f.split(".")[0] for f in files}
+        media_selector = ui.select(selections, on_change=lambda: scene_manager.set_media(media_selector.value))
 
         ui.run(reload=False, show = False)

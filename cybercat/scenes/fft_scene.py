@@ -34,11 +34,12 @@ class FFTScene(SceneInterface):
         if np.min(self.ear.bin_mean_values) > 0:
             frequency_bin_energies = 0.2 * self.ear.frequency_bin_energies / self.ear.bin_mean_values
             
-            feature_values = frequency_bin_energies[::-1]
+            # feature_values = frequency_bin_energies[::-1]
+            feature_values = frequency_bin_energies
             # print(feature_values)
             feature_values = feature_values * self.height
             for w in range(self.width):
-                for h in range(self.height):
+                for h in reversed(range(self.height)):
                     if feature_values[w] > h:
                         self.frame[w * self.height + h] = (255, 255, 255)
                     else:
